@@ -7,10 +7,9 @@ BUILD_PATH=$(PROJ_ROOT)/build
 
 LATEX_ENGINE=xelatex
 
-PANDOC_OPTS=--from=markdown\
+PANDOC_OPTS=--from=markdown+smart\
 			--to=latex\
-			--smart\
-			--chapters
+			--top-level-division=chapter
 
 XELATEX_OPTS=
 
@@ -24,7 +23,7 @@ sync:
 
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 text.tex: $(MD_FILES)
-	pandoc --latex-engine=$(LATEX_ENGINE) $(PANDOC_OPTS) $^ --output $(DOC_PATH)/$@
+	pandoc --pdf-engine=$(LATEX_ENGINE) $(PANDOC_OPTS) $^ --output $(DOC_PATH)/$@
 
 # Setting `-output-directory` to prevent the cruft won't help,
 # because biber and makeglossaries don't have that flag.
